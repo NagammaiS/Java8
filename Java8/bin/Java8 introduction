@@ -1,0 +1,91 @@
+WHY JAVA 8 ? MAIN AGENDA BEHIND JAVA8
+
+1. Conciseness in code 
+2. Java brings in Functional programming which is enabled by lambda expressions(a powerful tool to create concise code base)
+3. With Python and Scala we can do same thing in less lines of code , by mid 20's Java lost large market due to these languages . 
+To prevent further loss java upgraded itself from only OOPS to some concepts of FP to create concise code base.
+
+
+MAIN ADVANTAGES OF JAVA 8 :
+Compact code (Less boiler plate code)
+More readable and reusable code 
+More testable code 
+Parallel operations 
+
+
+WHAT IS LAMBDA EXPRESSION: 
+Lambda exprssion is an anonymous function (without access specifier , without return type , without name) and only one lambda symbol ->
+
+Normal programming technique :
+public void add(int a, int b){
+  System.out.println(a+b);
+}
+
+Equivalent Lambda expression:
+(a,b)->System.out.println(a+b);
+
+BiConsumer<Integer, Integer> add = public void add(Integer a,Integer b){
+System.out.println(a+b);
+}
+
+BiConsumer<Integer, Integer> add = (Integer a, Integer b)->{System.out.println(a+b);}
+
+//Since it knows that it is integer from left side 
+
+BiConsumer<Integer, Integer> add = (a,b)->System.out.println(a+b);
+add.accept(2,4);
+
+FUNCTIONAL INTERFACES :
+Interfaces which has only one abstract method and any number of default and static methods are called as Functional interfaces
+Eg : Runnable->run()
+Callable->call
+Comparator->compare()
+
+
+HOW LAMBDA EXPRESSIONS AND FUNCTIONAL INTERFACES ARE RELATED :
+Functional Interfaces provides refrence to lambda expression 
+		Comparator<String> c = (s1,s2)-> s1.compareTo(s2);
+		System.out.println(c.compare("Hello", "Helloo"));
+		
+		Comparator<String> c ->Functional Interface 
+		(s1,s2)->s1.compareTo(s2);-----------> Lambda Expression 
+		
+
+
+CAN WE CREATE OUR OWN FUNCTIONAL INTERFACE :
+Yes , 
+1. Create an interface 
+2. Annotate that with an @FunctionalInterface 
+3. Define exactly one Abstract method 
+4. There is no restriction on number of static and default methods 
+
+Java can implicitly identify a functional interface which has one abstract method , but still you can annotate for security  , so by mistake if 2 abstract
+methods are added compiler will throw error 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

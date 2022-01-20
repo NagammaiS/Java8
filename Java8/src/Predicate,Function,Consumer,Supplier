@@ -1,0 +1,111 @@
+import java.util.function.*;
+
+WHAT ARE PREDICATES :
+
+Predicate is a pre-defined functional interface (only one abstract method)
+Whenever we want to check a boolean function we can use Predicate 
+
+Takes one input and returns a boolean so return type not required 
+Predicate<T>
+public boolean test(input)
+
+HOW TO USE PREDICATES :
+Say if  you need to test the length of a given string is greater than equal to 5. Then in such situations where you need to test conditions , 
+use test() method of predicate 
+
+ADVANTAGES OF PREDICATES :
+Same thing can be done using ternary operator , but we can reuse many times 
+Code Reusability 
+If you have same conditions being used 100 times in a program then you can write once and just use 100 times with checkLength.test(different string to be tested)
+Conditional checks are holded by Functional Interface 
+
+
+WHAT IS PREDICATE JOINING :
+You can combine predicates in serial predicate 
+
+Three ways to join :
+And
+Or
+Negate
+
+Eg if we need to check two conditions :
+To  check if string length > 5
+To check length of string is even 
+
+WHAT ARE FUNCTIONS :
+Functions are predefined Functional interface having only one abstract method 
+
+Takes one input and returns one output (return type can be anything need not be boolean)
+Function<Integer,Integer> Output type is not fixed so we define it 
+public R apply(input T)
+
+Give some input perform some operations on input and then produce / return a result (not necessarily a boolean value)
+
+
+DIFFFERENCE BETWEEN PREDICATE AND FUNCTION :
+
+PREDICATE has return type as boolean, it is used for conditional checks 
+FUNCTION has return type as Object , it is used to perform opertaions and return a result
+
+PREDICATE<INTEGER> accepts single argument
+FUNCTION<STRING,INTEGER> accepts single argument and returns a object , here String input and Integer output 
+
+PREDICATE contains test() method
+FUNCTION contains apply() method 
+
+WHAT IS FUNCTIONAL CHAINING :
+We can combine/chain multiple functions together with andThen
+
+f1.andThen(f2).apply(input)-> f1 then f2
+f1.compose(f2).apply(input)-> f2 then f1
+f2.andThen(f1).apply(input)-> f2 then f1
+
+Multiple functions can be chained together 
+f1.andThen(f2).andThen(f3).apply(Input)
+
+
+WHAT ARE CONSUMER :
+It will consume a item and returns nothing , one input and no output 
+Eg : take any object and save its details in Database and don't return anything
+
+public void accept(input)
+
+
+WHAT IS CONSUMER CHAINING :
+We can combine multiple consumers together with andThen.
+
+There is only one ways to combine consumers using andThen() , no compose in consumer like functions
+c1.andThen(c2).apply(input)---> c1 then c2
+
+Multiple consumers can be chained together 
+c1.andThen(c2).andThen(c3).accept(input);
+
+
+WHAT IS SUPPLIER FUNCTIONAL INTERFACE :
+SUPPLIER<INTEGER> -> here integer is the output
+It takes no input but produce output always supply never consume
+Eg : Always supply me current date 
+
+public output get();
+
+SUPPLIER CHAINING IS NOT APPLICABLE
+No chaining as no input is given to this only it gives output
+
+
+ADVANTGES :
+Write once use it anywhere 
+Code reusability 
+
+WHAT ARE BIPREDICATE , BIFUNCTION , BICONSUMER AND WHY NO BISUPPLIER applicable 
+2 arguments as input , there is no input to supplier so BiSupplier is not applicable
+
+BIPREDICATE<input1,input2>->always returns boolean
+BIFUNCTION<input1,input1,output> ->returns output
+BICONSUMER<input1,input2>->No  output
+
+IF WE WANT TO OPERATE ON THREE ARGUMENTS THEN TRIPREDICATE?
+There are no TriPredicate,TriFunction or TriConsumer
+No QuadPredicate , QuadFunction or QuadConsumer
+
+Java inbuilt functional interfaces can take only 1 or 2 arguments not more than that 
+So if required we can create a custom functional interface 

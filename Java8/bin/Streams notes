@@ -1,0 +1,163 @@
+WHAT ARE STREAMS :
+Streams : Process objects of the collections -> java.util.stream package 
+If we want to process/perform operations on bulk objects of collection then go for streams concepts
+Ways to operate on collection in java8 in stream
+Its a special iterator class that allows processing collections of objects in a functional manner
+
+Collections : Represent a group of objects as a single entity then we go for collections concepts
+Arrays are  performance wise greater than collections and streams 
+
+DIFFERNCE BETWEEN java.io.stream and STREAMS API :
+Java IO streams are related to files whereas Java8 streams are related to collection object
+Java io streams is a sequence of characters or binary data which is used to be written to a file or to read a data from a file 
+
+STEAPS TO CREATE AND PROCESS A STREAM :
+Stream s = collectionObject.stream()
+Once we get the stream we can process the object of collection
+Processing of stream consists of two stages :
+1. Configuration of stream
+2. Processing the configuration
+
+Configuring the streams : filter() and map()
+
+Processing of stream : collect() ,count(), min() , max() , sorted(), forEach(),toArray(),of() 
+
+stream(),filter(),map(),collect(),count(),sorted(),sorted(Comparator),min(Comparator),max(Comparator),forEach(),toArray,Stream.of
+
+stream():
+collectionobject.stream() to create a stream.
+list.stream();
+
+filter():
+Filter(Predicate) ->  takes input and returns boolean if true or false 
+Stream s = collectionObject.stream().filter(condition);
+input - 10 elements 
+output - 0- 10 elements
+Because of filtering number of objects in filtered list is less than original list
+
+map():
+We want to create a new object against each existing stream object based on some function
+Map(Function) -> takes input and produce output 
+input - 10 elements 
+output - 10 elements
+In  map same number of objects aare there in both new and original list created 
+
+collect():
+Collects and store in list,map,set.
+If you want to collect elements of stream after filtering and mapping and them to the required collection then use collect method.
+
+
+count():
+can be used in filtered , mapped or in raw stream. Cannot call in collected stream as it returns a collection and count returns a long value.
+
+sorted():Default Natural sorted order
+Uses Comparable interface internally -> Default natural sorting order
+compareTo;
+(i1,i2)-> i1.compareTo(i2)->default natural sorting order
+(i1,i2)->i2.compareTo(i1)->descending order
+(i1,i2)->-i1.compareTo(i2)->default natural sorting order is reversed 
+
+sorted(Comparator)
+//Comparator  -> customized sorting order
+compare(o1,o2)
+Returns -ve if o1 has to come before o2 (o1,o2) o1<o2 -> first argument is less than second returns -ve  
+Returns +ve if o1 has to come after o2  o2,o1  o1>o2 -> first argument greater than second returns +ve
+Returns 0 if o1 and o2 are equal 
+
+min(Comparator),max(Comparator):
+Both will return min and max values based on the defined comparator
+[0,2,4,1,3]
+[0,1,2,3,4]=>Ascending order => min - 0 , max - 4
+[4,3,2,1,0]=>Descending order =>min -4 , max - 0
+
+forEach(Consumer)->takes input no output returns nothing 
+Takes lambda expression as input and apply that lambda expression on each element present in the stream
+
+
+toArray():
+To convert stream of objects to array
+
+Stream.of():
+Stream.of(1,2,3,4);
+Stream.of(arrayname);
+Stream concept is not applicable just for the collections it's applicable for "ANY GROUP OF VALUE"
+Convert array to stream or bunch of values 
+
+WHAT ARE INTERMEDIATE OPERTAIONS:
+The operations which return another stream as a result are called intermediate operations , they are lazy 
+eg : filter(),map(),sorted(),distinct(),limit(),skip(),peek();
+
+WHAT ARE TERMINAL OPERATIONS:
+The operations which return non-stream values like primitives or objects or collection or return nothing are called terminal operations
+
+You can chain a multiple intermediate operations and none of them will do anything until you invoke a terminal operation. At that time , 
+all of terminal operations that you invoked earlier will be invoked along with the terminal operation.
+eg:  forEach(),toArray(),reduce(),collect(),min(),max(),count(),anyMatch(),allMatch(),noneMatch(),findFirst(),findAny();
+
+
+STREAM PIPELINE 
+			NON TERMINAL OPERATIONS 			TERMINAL OPERATIONS
+SOURCE--------->T1->T2->T3--------------------------> T4-------------------->RESULT OF TERMINAL OPERATIONS 
+
+
+
+INTERMEDITAE VS TERMINAL OPERATIONS :
+I:they return a stream , They can be  chained together to form a pipeline of operations , pipeline can contain any number of intermediate operations 
+T:They return Non-stream values , They cannot be chained together , a pipeline can contain only one terminal operations that too at the end
+
+I:They are lazily loaded , They don't  produce end result
+T:They are eagerly loaded , they produce end result
+
+
+WHAT IS PEEK:
+PEEK is an intermediate operations. It takes consumer as input , It returns a stream consisting of elements of current stream
+
+USE OF PEEK:
+peek() exists mainly to support debugging , where we want to see elements as they flow past a certain point in a piepline
+Its similiar to Map , but it takes consumer object and perform some action on object and return nothing , but map takes a function argumnet hence apply operation
+on each element and return the stream having modified collections
+
+WHAT IS REDUCE:
+The Stream.reduce() combine elements of a stream and produces a single value
+The reduce operation applies a binary operator to each element in the stream where the first argument to the operator is the return value of the previous
+application and second argument is the current stream element 
+
+
+limit(n):
+Limit is an intermediate operation, that returns a stream not longer than the requested size , n cannot be negative
+
+skip(n):
+Skip is an intermediate operation that discards first n elements of a stream . n cannot be negative , if n is higher 
+than size of stream it returns a empty stream
+
+
+WHAT IS PARALLEL STREAM :
+Java Parallel Streams came into picture after Java8 
+Its meant to use multiple cores of processor 
+Till now our java code has 1 stream of processing where it executes sequentially 
+But when you use parallel streams , we divide code into multiple streams that executes parallely , on seperate cores and final results is the 
+outcome of individual cores outcomes combined
+
+SEQUENTIAL STREAMS :
+All tasks in one core , in sequential order tasks are executed and output of one can be input to another
+In terms of memory , performance , time consumption it is bad 
+Output of Sequential stream T1->T2->T3->T4
+		T1		T2		T3		T4
+CORE1	T1		T2		T3		T4	
+CORE2
+CORE3
+CORE4
+
+PARALLEL STREAMS :
+		T1		T2		T3		T4
+CORE1			T2					
+CORE2	T1
+CORE3					T3
+CORE4							T4
+
+Ouput of Parallel stream T2->T1->T3->T4 ---->not in sequential order
+Order of execution is not under control 
+Hence it is advisable to use parallel streams only when order of execution of threads does not matter and state of one elements does not affect another 
+
+
+

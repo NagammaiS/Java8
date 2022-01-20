@@ -1,0 +1,29 @@
+Collectors.groupingBy()
+Collectors.maxBy()
+Collectors.counting()
+Collectors.averagingInt()
+
+Optional<Employee> o
+.max(Comparator.comparingDouble(e->e.getSalary()));
+.min(Comparator.comparingInt(e->e.getAge()));
+.min(Comparator.comparingInt(e->e.getYearOfJoining()));
+.max(Comparator.comparingInt(e->e.getAge()));
+
+Return types are Map<String,Double/Int>
+.collect(Collectors.groupingBy(e->e.getGender(),Collectors.counting()));
+.collect(Collectors.groupingBy(e->e.getGender(),Collectors.averagingInt(e->e.getAge()))));
+.collect(Collectors.groupingBy(e->e.getDepartment(),Collectors.counting()));
+.collect(Collectors.groupingBy(e->e.getDepartment(),Collectors.averagingDouble(e->e.getSalary())));
+.collect(Collectors.groupingBy(e->e.getGender(),Collectors.averagingDouble(e->e.getSalary())));
+.collect(Collectors.groupingBy(e->e.getDepartment())); //just  grouping by department
+
+Optional<Employee> o
+.collect(Collectors.maxBy(Comparator.comparingDouble(e->e.getSalary())));
+.collect(Collectors.minBy(Comparator.comparingInt(e->e.getAge())));
+
+DoubleSummaryStatistics summary =
+.collect(Collectors.summarizingDouble(e->e.getSalary()));
+
+Map<Boolean,List<Employee>>
+.collect(Collectors.partitioningBy(e->e.getAge()>25));
+
